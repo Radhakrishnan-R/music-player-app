@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player App</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://kit.fontawesome.com/b7224fcd49.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="circle">
+                <i class="fa-solid fa-angle-left"></i>
+            </div>
+            <div class="circle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+        <div class="music-info-box">
+            <img src="./468-thumbnail.png" alt="music-thumbnail" />
+            <h1>Here Comes The Night</h1>
+            <p>DJ Snake ft. Mr Hudson [Exclusive]</p>
+        </div>
+        <div class="music-controls">
+            <audio controls>
+                <source src="./DJ Snake - Here Comes The Night ft. Mr Hudson [Exclusive] - YouTube.mp3">
+            </audio>
+            <input type="range" value="0" onchange="updateSong()"/>
+            <div class="controls">
+                <i class="fa-solid fa-backward"></i>
+                <i class="fa-solid fa-play" id="play-pause" onclick="sound()"></i>
+                <i class="fa-solid fa-forward"></i>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const audio = document.querySelector("audio");
+        const range = document.querySelector("input");
+        const playPause = document.querySelector("#play-pause");
+
+        audio.onloadedmetadata = () => {
+            range.max = audio.duration;
+            range.value = audio.currentTime;
+        }
+
+        if(audio.play()){
+            setInterval(() => {
+                range.value = audio.currentTime;
+                // console.log(audio.currentTime);
+            }, 1000);
+        }
+
+       
+
+        function sound(){
+            if(playPause.classList.contains("fa-pause")){
+                audio.pause();
+                playPause.classList.remove("fa-pause");
+                playPause.classList.add("fa-play");
+            }else{
+                audio.play();{
+                    playPause.classList.add("fa-pause");
+                    playPause.classList.remove("fa-play");
+                }
+            }
+        }
+
+
+
+        function updateSong(){
+            audio.currentTime = range.value;
+        }
+
+
+
+
+
+
+    
+    </script>
+</body>
+</html>
